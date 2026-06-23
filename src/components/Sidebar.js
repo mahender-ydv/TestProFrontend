@@ -13,13 +13,15 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [collapsed, setCollapsed] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (user) {
+    const loggedUser = localStorage.getItem("user");
+
+    if (loggedUser) {
       try {
-        const parsed = JSON.parse(user);
-        setUsername(parsed.name || "User");
+        const parsed = JSON.parse(loggedUser);
+        setUser(parsed || "User");
       } catch (error) {
         console.error("Failed to parse user from localStorage");
       }
@@ -59,13 +61,13 @@ export default function Sidebar() {
       {/* User Info */}
       <div className="sidebar-user d-flex flex-column align-items-center gap-2 mb-4">
         <img
-          src="https://imagekit.io/blog/content/images/2019/12/image-optimization.jpg"
+          src={user?.profilePic}
           alt="User"
           className="rounded-circle"
           width="60"
           height="60"
         />
-        {!collapsed && <h5 className="mb-0 text-center">{username}</h5>}
+        {!collapsed && <h5 className="mb-0 text-center">{user?.name}</h5>}
       </div>
 
       {/* Nav Items */}

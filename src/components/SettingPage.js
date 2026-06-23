@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { FaPencilAlt, FaUser } from "react-icons/fa";
 
 export default function Setting() {
   const navigate = useNavigate();
@@ -9,12 +10,57 @@ export default function Setting() {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [message, setMessage] = useState("");
+  const fileInputRef = useRef(null)
+  const [profilePic, setProfilePic] = useState(null);
+
+  const handleIconClick = () => {
+    fileInputRef.current.click();
+
+  }
+
+  const handleImageChange = async (e) => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    const token = localStorage.getItem("token");
+
+    const file = e.target.files[0];
+    if (!file) return;
+    console.log(file);
+
+    const formData = new FormData()
+
+    formData.append("profile", file)
+
+    try {
+      const res = await axios.post(
+        `${process.env.REACT_APP_API_URL}/auth/update-profile-pic`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
+          }
+        }
+      )
+      setProfilePic(res.data.imageUrl);
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
+
+    } catch (error) {
+      console.log(error)
+    }
+
+
+  }
+
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
       setName(user.name);
-      setEmail(user.email); // display only
+      setEmail(user.email);
+      setProfilePic(user.profilePic)
     }
   }, []);
 
@@ -97,10 +143,36 @@ export default function Setting() {
     }
   };
 
+
   return (
     <div className="container mt-4">
       <h3 className="mb-4">Settings</h3>
       {message && <div className="alert alert-info">{message}</div>}
+
+      <div className="d-flex flex-column align-items-center mb-4">
+        <div className="position-relative ">
+          <img
+            src={profilePic}
+            alt="user"
+            className="rounded-circle shadow"
+            width="120"
+            height="120"
+            style={{ objectFit: "cover" }}
+          />
+
+          <FaPencilAlt onClick={handleIconClick}
+            className="position-absolute bottom-0 end-0 bg-light p-2 rounded-circle shadow"
+            style={{ cursor: "pointer" }}
+          />
+          <input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleImageChange}
+            hidden
+          />
+        </div>
+      </div>
 
       {/* Update Name */}
       <div className="card mb-4 shadow-sm">
@@ -163,13 +235,13 @@ export default function Setting() {
       </div>
       <button
         className="btn btn-danger m-3"
-        
+
         onClick={handleDeleteAccount}
       >
         Delete My Account
       </button>
 
-      
+
     </div>
   );
 }

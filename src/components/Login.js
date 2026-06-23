@@ -42,14 +42,14 @@ export default function LoginPage() {
       );
 
       if (res.data.success) {
-        const { jwtToken, email, name, role, _id } = res.data;
+        const { jwtToken, email, name, role, _id , profilePic } = res.data;
 
         // Save to localStorage
         localStorage.setItem("token", jwtToken);
         localStorage.setItem("email", email);
         localStorage.setItem(
           "user",
-          JSON.stringify({ name, email, role, _id })
+          JSON.stringify({ name, email, role, _id,profilePic })
         );
 
        
