@@ -161,7 +161,8 @@ export default function Setting() {
           />
 
           <FaPencilAlt onClick={handleIconClick}
-            className="position-absolute bottom-0 end-0 bg-light p-2 rounded-circle shadow"
+            // className="position-absolute bottom-0 end-0 bg-light p-2 rounded-circle shadow"
+            className="position-absolute bottom-0 end-0"
             style={{ cursor: "pointer" }}
           />
           <input

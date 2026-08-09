@@ -20,7 +20,7 @@ const LandingPage = () => {
       {/* Features Section */}
       <section className="py-5 bg-light">
         <div className="container">
-          <h2 className="text-center fw-bold mb-5">Why Choose TestMaster?</h2>
+          <h2 className="text-center fw-bold mb-5">Why Choose TestPro?</h2>
           <div className="row g-4">
             <div className="col-md-4">
               <div className="card h-100 shadow-sm text-center p-3">
@@ -80,3 +80,4 @@ const LandingPage = () => {
 };
 
 export default LandingPage;
+

@@ -20,6 +20,7 @@ import ResetPassword from "./components/ResetPassword";
 import AddTestPaper from "./components/AddTestPaper";
 import AddQuestion from "./components/AddQuestions";
 import FileUploadSystem from "./components/FileUploadSystem";
+import SubjectCardGrid from "./components/SubjectCardGrid";
 
 
 function App() {
@@ -37,7 +38,7 @@ function App() {
         
         {/* Layout route with sidebar */}
         <Route element={<MainLayout />}>
-          <Route path="/home" element={<HomePage />} />
+          <Route path="/home" element={<SubjectCardGrid />} />
           <Route path="/viewTest" element={<Paper />} />
           <Route path="/notice" element={<NoticeBoard />} />
           <Route path="/add-testpaper" element={<AddTestPaper />} />
