@@ -1,6 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  FileText,
+  Clock,
+  Award,
+  Play,
+  Plus,
+  Trash2,
+  HelpCircle,
+  ArrowLeft,
+  Sparkles,
+} from "lucide-react";
+import Modal from "./ui/Modal";
 
 const Paper = () => {
   const navigate = useNavigate();
@@ -71,19 +83,14 @@ const Paper = () => {
     });
   };
 
-
   const handleDelete = async (testPaperId) => {
     if (!window.confirm("Are you sure you want to delete this test paper?")) return;
 
     try {
       const token = localStorage.getItem("token");
       await axios.delete(`${process.env.REACT_APP_API_URL}/add/deletetestpapers/${testPaperId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
-
-      // Refresh list
       setTestPapers((prev) => prev.filter((test) => test._id !== testPaperId));
     } catch (err) {
       console.error("Failed to delete test paper:", err);
@@ -91,84 +98,99 @@ const Paper = () => {
     }
   };
 
-
   return (
-    <div className="container my-5">
-      <h2 className="text-center fw-bold mb-4">
-        📘 <span className="text-primary">Test Papers</span> for <span className="text-dark">{subjectName}</span>
-      </h2>
-
-      {/* Admin Add Button */}
-      {role === "admin" && (
-        <div className="d-flex justify-content-end mb-4">
+    <div className="container-fluid p-0 animate-fade-in">
+      {/* Header Bar */}
+      <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div className="d-flex align-items-center gap-3">
           <button
-            className="btn btn-success"
+            className="tp-btn tp-btn-secondary p-2 rounded-circle border-0"
+            onClick={() => navigate("/home")}
+            title="Back to Subjects"
+          >
+            <ArrowLeft size={20} />
+          </button>
+          <div>
+            <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
+              {subjectName || "Subject"} Test Papers <Sparkles size={22} className="text-primary" />
+            </h2>
+            <p className="text-muted mb-0">Select an assessment paper to begin your timed test session.</p>
+          </div>
+        </div>
+
+        {role === "admin" && (
+          <button
+            className="tp-btn tp-btn-primary"
             onClick={() =>
               navigate("/add-testpaper", { state: { subjectId, subjectName } })
             }
           >
-            ➕ Add New Test Paper
+            <Plus size={18} /> Add New Paper
           </button>
-        </div>
-      )}
+        )}
+      </div>
 
-      {/* Loading Spinner */}
+      {/* Content Body */}
       {loading ? (
-        <div
-          className="d-flex justify-content-center align-items-center"
-          style={{ height: "50vh" }}
-        >
+        <div className="text-center py-5">
           <div className="spinner-border text-primary" role="status">
-            <span className="visually-hidden">Loading...</span>
+            <span className="visually-hidden">Loading test papers...</span>
           </div>
+          <p className="text-muted mt-3">Fetching test papers...</p>
         </div>
       ) : testPapers.length === 0 ? (
-        <div className="text-center text-muted mt-5">
-          <h5>😕 No test papers found for this subject.</h5>
+        <div className="glass-card p-5 text-center my-4">
+          <FileText size={48} className="text-muted mb-3" />
+          <h4 className="fw-bold text-main">No Test Papers Available</h4>
+          <p className="text-muted">There are currently no test papers created for {subjectName}.</p>
         </div>
       ) : (
         <div className="row g-4">
           {testPapers.map((test) => (
             <div key={test._id} className="col-12 col-sm-6 col-lg-4">
-              <div className="card shadow-sm h-100 border-0">
-                <div className="card-body d-flex flex-column">
-                  <h5 className="card-title text-primary fw-bold mb-2">{test.title}</h5>
-
-                  <div className="mb-3">
-                    <span className="badge bg-light text-dark me-2">
-                      🕒 {test.duration} min
-                    </span>
-                    <span className="badge bg-secondary">
-                      🎯 {test.totalMarks} marks
-                    </span>
+              <div className="glass-card p-4 h-100 d-flex flex-column justify-content-between">
+                <div>
+                  <div className="d-flex justify-content-between align-items-start mb-3">
+                    <span className="tp-badge tp-badge-primary">Assessment</span>
+                    <span className="text-muted fs-7 font-mono fw-semibold">ID: {test._id.slice(-6)}</span>
                   </div>
 
-                  {/* Action Buttons */}
-                  <div className="mt-auto">
-                    <button
-                      className="btn btn-outline-primary w-100 mb-2"
-                      onClick={() => confirmStart(test)}
-                    >
-                      ▶️ Start Test
-                    </button>
+                  <h4 className="fw-bold text-main mb-3">{test.title}</h4>
 
-                    {role === "admin" && (
-                      <div className="d-flex gap-2">
-                        <button
-                          className="btn btn-outline-warning w-50"
-                          onClick={() => handleAddQuestion(test)}
-                        >
-                          ➕ Add Qs
-                        </button>
-                        <button
-                          className="btn btn-outline-danger w-50"
-                          onClick={() => handleDelete(test._id)}
-                        >
-                          🗑️ Delete
-                        </button>
-                      </div>
-                    )}
+                  <div className="d-flex align-items-center gap-3 mb-4 flex-wrap">
+                    <span className="tp-badge tp-badge-primary py-1 px-2.5 fs-7">
+                      <Clock size={14} /> {test.duration} mins
+                    </span>
+                    <span className="tp-badge tp-badge-success py-1 px-2.5 fs-7">
+                      <Award size={14} /> {test.totalMarks} Marks
+                    </span>
                   </div>
+                </div>
+
+                <div className="pt-3 border-top border-subtle">
+                  <button
+                    className="tp-btn tp-btn-primary w-100 mb-2 py-2-5"
+                    onClick={() => confirmStart(test)}
+                  >
+                    <Play size={16} /> Start Examination
+                  </button>
+
+                  {role === "admin" && (
+                    <div className="d-flex gap-2 mt-2">
+                      <button
+                        className="tp-btn tp-btn-secondary w-50 py-2 fs-7"
+                        onClick={() => handleAddQuestion(test)}
+                      >
+                        <Plus size={14} /> Add Qs
+                      </button>
+                      <button
+                        className="tp-btn tp-btn-danger w-50 py-2 fs-7"
+                        onClick={() => handleDelete(test._id)}
+                      >
+                        <Trash2 size={14} /> Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -176,38 +198,43 @@ const Paper = () => {
         </div>
       )}
 
-      {/* Start Test Modal */}
-      {showModal && selectedTest && (
-        <div className="modal d-block" tabIndex="-1" style={{ backgroundColor: "rgba(0,0,0,0.5)" }}>
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content shadow">
-              <div className="modal-header">
-                <h5 className="modal-title">Start Test?</h5>
-                <button
-                  className="btn-close"
-                  onClick={() => setShowModal(false)}
-                ></button>
-              </div>
-              <div className="modal-body">
-                <p><strong>Test:</strong> {selectedTest.title}</p>
-                <p><strong>Duration:</strong> {selectedTest.duration} min</p>
-                <p><strong>Total Marks:</strong> {selectedTest.totalMarks}</p>
-              </div>
-              <div className="modal-footer">
-                <button className="btn btn-secondary" onClick={() => setShowModal(false)}>
-                  Cancel
-                </button>
-                <button className="btn btn-success" onClick={startTest}>
-                  ✅ Start Now
-                </button>
+      {/* Start Test Confirmation Modal */}
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        title="Start Test Session?"
+      >
+        {selectedTest && (
+          <div>
+            <div className="glass-card p-3 mb-3" style={{ backgroundColor: "var(--bg-surface-elevated)" }}>
+              <h5 className="fw-bold text-main mb-2">{selectedTest.title}</h5>
+              <div className="d-flex gap-3 text-muted fs-6">
+                <span>⏱️ <strong>Duration:</strong> {selectedTest.duration} minutes</span>
+                <span>🏆 <strong>Total Marks:</strong> {selectedTest.totalMarks}</span>
               </div>
             </div>
+
+            <div className="tp-badge tp-badge-warning p-3 rounded-3 mb-4 w-100 text-start">
+              <span className="fw-bold d-block mb-1">⚠️ Proctored Instructions:</span>
+              <ul className="mb-0 ps-3 fs-6">
+                <li>Do not refresh or navigate back during the test.</li>
+                <li>Tab switching is recorded and monitored automatically.</li>
+                <li>Ensure a stable internet connection before proceeding.</li>
+              </ul>
+            </div>
+
+            <div className="d-flex justify-content-end gap-2">
+              <button className="tp-btn tp-btn-secondary" onClick={() => setShowModal(false)}>
+                Cancel
+              </button>
+              <button className="tp-btn tp-btn-success px-4" onClick={startTest}>
+                <Play size={16} /> Begin Test Now
+              </button>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </Modal>
     </div>
-
-
   );
 };
 

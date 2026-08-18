@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {
+  BookOpen,
+  Plus,
+  Search,
+  Sparkles,
+  ArrowRight,
+  ShieldAlert,
+  GraduationCap,
+  Layers,
+} from "lucide-react";
+import StatCard from "./ui/StatCard";
+import Modal from "./ui/Modal";
 
 const ICON_COLORS = [
-  { bg: "#E6F1FB", color: "#185FA5", light: "#B5D4F4" },
-  { bg: "#E1F5EE", color: "#0F6E56", light: "#9FE1CB" },
-  { bg: "#FAEEDA", color: "#854F0B", light: "#FAC775" },
-  { bg: "#EEEDFE", color: "#534AB7", light: "#CECBF6" },
-  { bg: "#FBEAF0", color: "#993556", light: "#F4C0D1" },
-  { bg: "#EAF3DE", color: "#3B6D11", light: "#C0DD97" },
+  { bg: "rgba(99, 102, 241, 0.12)", color: "#6366F1", border: "rgba(99, 102, 241, 0.2)" },
+  { bg: "rgba(139, 92, 246, 0.12)", color: "#8B5CF6", border: "rgba(139, 92, 246, 0.2)" },
+  { bg: "rgba(16, 185, 129, 0.12)", color: "#10B981", border: "rgba(16, 185, 129, 0.2)" },
+  { bg: "rgba(6, 182, 212, 0.12)", color: "#06B6D4", border: "rgba(6, 182, 212, 0.2)" },
+  { bg: "rgba(245, 158, 11, 0.12)", color: "#F59E0B", border: "rgba(245, 158, 11, 0.2)" },
+  { bg: "rgba(244, 63, 94, 0.12)", color: "#F43F5E", border: "rgba(244, 63, 94, 0.2)" },
 ];
 
 const ICONS = ["📐", "🔬", "📖", "🌍", "💻", "🎨", "🎵", "📊", "🧪", "🗣️"];
@@ -16,8 +28,14 @@ const ICONS = ["📐", "🔬", "📖", "🌍", "💻", "🎨", "🎵", "📊", "
 const SubjectCardGrid = () => {
   const navigate = useNavigate();
   const [subjects, setSubjects] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  // Modal State for Add Subject
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newSubject, setNewSubject] = useState({ name: "", description: "" });
+  const [adding, setAdding] = useState(false);
 
   useEffect(() => {
     fetchSubjects();
@@ -47,22 +65,26 @@ const SubjectCardGrid = () => {
     }
   };
 
-  const handleAddSubject = async () => {
-    const name = prompt("Enter subject name:");
-    const description = prompt("Enter description:");
-    if (!name) return;
+  const handleAddSubjectSubmit = async (e) => {
+    e.preventDefault();
+    if (!newSubject.name) return;
+
     try {
+      setAdding(true);
       const token = localStorage.getItem("token");
       await axios.post(
         `${process.env.REACT_APP_API_URL}/add/add-subject`,
-        { name, description },
+        newSubject,
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      alert("Subject added successfully!");
+      setShowAddModal(false);
+      setNewSubject({ name: "", description: "" });
       fetchSubjects();
     } catch (err) {
       alert("Error adding subject");
       console.error(err);
+    } finally {
+      setAdding(false);
     }
   };
 
@@ -72,221 +94,200 @@ const SubjectCardGrid = () => {
     });
   };
 
+  const filteredSubjects = subjects.filter((s) =>
+    s.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div style={styles.page}>
-      {/* Header */}
-      <div style={styles.header}>
-        <div style={styles.headerLeft}>
-          <h1 style={styles.pageTitle}>Subjects</h1>
-          <span style={styles.countBadge}>
-            {subjects.length} subject{subjects.length !== 1 ? "s" : ""}
-          </span>
+    <div className="container-fluid p-0">
+      {/* Top Banner Header */}
+      <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div>
+          <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
+            Subject Library <Sparkles size={24} className="text-primary" />
+          </h2>
+          <p className="text-muted mb-0">Select a subject to view and attempt available test papers.</p>
         </div>
+
         {role === "admin" && (
-          <button style={styles.addBtn} onClick={handleAddSubject}>
-            <span style={{ fontSize: 18, lineHeight: 1 }}>+</span> Add Subject
+          <button
+            className="tp-btn tp-btn-primary"
+            onClick={() => setShowAddModal(true)}
+          >
+            <Plus size={18} /> Add New Subject
           </button>
         )}
       </div>
 
-      {/* Grid */}
+      {/* Metrics Row */}
+      <div className="row g-3 mb-4">
+        <div className="col-12 col-sm-6 col-md-4">
+          <StatCard
+            title="Total Subjects"
+            value={subjects.length}
+            subtitle="Categorized Curriculums"
+            icon={Layers}
+            color="primary"
+          />
+        </div>
+        <div className="col-12 col-sm-6 col-md-4">
+          <StatCard
+            title="Learning Tracks"
+            value="Active"
+            subtitle="Practice & Prep Ready"
+            icon={GraduationCap}
+            color="emerald"
+          />
+        </div>
+        <div className="col-12 col-sm-6 col-md-4">
+          <StatCard
+            title="Account Access"
+            value={role === "admin" ? "Administrator" : "Student"}
+            subtitle="Proctored Assessment Enabled"
+            icon={ShieldAlert}
+            color="purple"
+          />
+        </div>
+      </div>
+
+      {/* Search & Action Bar */}
+      <div className="glass-card p-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
+        <div className="position-relative flex-grow-1" style={{ maxWidth: "420px" }}>
+          <Search size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+          <input
+            type="text"
+            className="tp-input ps-5"
+            placeholder="Search subjects by name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div>
+
+        <span className="tp-badge tp-badge-primary fs-6 px-3 py-2">
+          {filteredSubjects.length} {filteredSubjects.length === 1 ? "Subject" : "Subjects"} Available
+        </span>
+      </div>
+
+      {/* Subjects Grid */}
       {loading ? (
-        <div style={styles.emptyState}>Loading subjects...</div>
-      ) : subjects.length === 0 ? (
-        <div style={styles.emptyState}>No subjects found.</div>
+        <div className="text-center py-5">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading subjects...</span>
+          </div>
+          <p className="text-muted mt-3">Loading available subjects...</p>
+        </div>
+      ) : filteredSubjects.length === 0 ? (
+        <div className="glass-card p-5 text-center my-4">
+          <BookOpen size={48} className="text-muted mb-3" />
+          <h4 className="fw-bold text-main">No Subjects Found</h4>
+          <p className="text-muted">Try adjusting your search keywords or add a new subject.</p>
+        </div>
       ) : (
-        <div style={styles.grid}>
-          {subjects.map((subject, index) => {
+        <div className="row g-4">
+          {filteredSubjects.map((subject, index) => {
             const palette = ICON_COLORS[index % ICON_COLORS.length];
             const icon = ICONS[index % ICONS.length];
             return (
-              <SubjectCard
-                key={subject._id || index}
-                subject={subject}
-                icon={icon}
-                palette={palette}
-                onView={() => handleViewClick(subject)}
-              />
+              <div key={subject._id || index} className="col-12 col-sm-6 col-lg-4 col-xl-3">
+                <SubjectCard
+                  subject={subject}
+                  icon={icon}
+                  palette={palette}
+                  onView={() => handleViewClick(subject)}
+                />
+              </div>
             );
           })}
         </div>
       )}
+
+      {/* Add Subject Modal */}
+      <Modal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        title="Add New Subject"
+      >
+        <form onSubmit={handleAddSubjectSubmit}>
+          <div className="mb-3">
+            <label className="form-label fw-semibold text-main">Subject Name</label>
+            <input
+              type="text"
+              className="tp-input"
+              placeholder="e.g. Mathematics, Physics..."
+              value={newSubject.name}
+              onChange={(e) => setNewSubject({ ...newSubject, name: e.target.value })}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="form-label fw-semibold text-main">Description</label>
+            <textarea
+              className="tp-input"
+              rows="3"
+              placeholder="Brief summary of test topics..."
+              value={newSubject.description}
+              onChange={(e) => setNewSubject({ ...newSubject, description: e.target.value })}
+            />
+          </div>
+
+          <div className="d-flex justify-content-end gap-2">
+            <button
+              type="button"
+              className="tp-btn tp-btn-secondary"
+              onClick={() => setShowAddModal(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="tp-btn tp-btn-primary"
+              disabled={adding}
+            >
+              {adding ? "Adding..." : "Add Subject"}
+            </button>
+          </div>
+        </form>
+      </Modal>
     </div>
   );
 };
 
 const SubjectCard = ({ subject, icon, palette, onView }) => {
-  const [hovered, setHovered] = useState(false);
-
   return (
-    <div
-      style={{
-        ...styles.card,
-        borderColor: hovered ? palette.light : "#e5e7eb",
-        background: hovered ? "#fafafa" : "#ffffff",
-        transform: hovered ? "translateY(-2px)" : "translateY(0)",
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      {/* Icon */}
-      <div style={{ ...styles.iconBox, background: palette.bg }}>
-        <span style={styles.iconEmoji}>{icon}</span>
+    <div className="glass-card p-4 h-100 d-flex flex-column justify-content-between position-relative overflow-hidden">
+      <div>
+        {/* Top Palette Badge */}
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <div
+            className="d-flex align-items-center justify-content-center rounded-3 fs-3"
+            style={{
+              width: "48px",
+              height: "48px",
+              backgroundColor: palette.bg,
+              border: `1px solid ${palette.border}`,
+            }}
+          >
+            {icon}
+          </div>
+          <span className="tp-badge tp-badge-primary">Course</span>
+        </div>
+
+        <span className="text-muted text-uppercase fw-bold fs-7 tracking-wide">Subject</span>
+        <h4 className="fw-bold text-main my-1">{subject.name}</h4>
+        <p className="text-muted fs-6 mb-4 line-clamp-2">
+          {subject.description || `Practice standardized tests and topic assessments for ${subject.name}.`}
+        </p>
       </div>
 
-      {/* Meta */}
-      <p style={styles.subjectLabel}>Subject</p>
-      <h3 style={styles.subjectName}>{subject.name}</h3>
-
-      {/* Divider */}
-      <div style={styles.divider} />
-
-      {/* Description */}
-      <p style={styles.subjectDesc}>
-        {subject.description ||
-          `Practice tests and assessments for ${subject.name}.`}
-      </p>
-
-      {/* View Button */}
       <button
-        style={{
-          ...styles.viewBtn,
-          background: hovered ? palette.bg : "transparent",
-          color: hovered ? palette.color : "#374151",
-          borderColor: hovered ? palette.light : "#d1d5db",
-        }}
+        className="tp-btn tp-btn-secondary w-100 justify-content-between"
         onClick={onView}
       >
-        View tests <span style={{ marginLeft: 4 }}>→</span>
+        <span>View Available Papers</span> <ArrowRight size={16} />
       </button>
     </div>
   );
-};
-
-const styles = {
-  page: {
-    padding: "2rem 1.5rem",
-    maxWidth: 1100,
-    margin: "0 auto",
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-  },
-  header: {
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginBottom: "1.75rem",
-    flexWrap: "wrap",
-    gap: 12,
-  },
-  headerLeft: {
-    display: "flex",
-    alignItems: "center",
-    gap: 12,
-  },
-  pageTitle: {
-    fontSize: 24,
-    fontWeight: 600,
-    color: "#111827",
-    margin: 0,
-  },
-  countBadge: {
-    fontSize: 12,
-    fontWeight: 500,
-    color: "#6b7280",
-    background: "#f3f4f6",
-    border: "1px solid #e5e7eb",
-    borderRadius: 20,
-    padding: "3px 12px",
-  },
-  addBtn: {
-    display: "flex",
-    alignItems: "center",
-    gap: 6,
-    padding: "9px 18px",
-    border: "1px solid #d1d5db",
-    borderRadius: 8,
-    background: "#ffffff",
-    fontSize: 14,
-    fontWeight: 500,
-    color: "#111827",
-    cursor: "pointer",
-    transition: "all 0.15s",
-  },
-  grid: {
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-    gap: 14,
-  },
-  card: {
-    background: "#ffffff",
-    border: "1px solid #e5e7eb",
-    borderRadius: 12,
-    padding: "1.25rem",
-    display: "flex",
-    flexDirection: "column",
-    gap: 8,
-    cursor: "default",
-    transition: "all 0.18s ease",
-  },
-  iconBox: {
-    width: 44,
-    height: 44,
-    borderRadius: 10,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    marginBottom: 4,
-  },
-  iconEmoji: {
-    fontSize: 22,
-    lineHeight: 1,
-  },
-  subjectLabel: {
-    fontSize: 11,
-    fontWeight: 500,
-    letterSpacing: "0.06em",
-    textTransform: "uppercase",
-    color: "#9ca3af",
-    margin: 0,
-  },
-  subjectName: {
-    fontSize: 16,
-    fontWeight: 600,
-    color: "#111827",
-    margin: 0,
-  },
-  divider: {
-    height: 1,
-    background: "#f3f4f6",
-    margin: "4px 0",
-  },
-  subjectDesc: {
-    fontSize: 13,
-    color: "#6b7280",
-    lineHeight: 1.55,
-    margin: 0,
-    flex: 1,
-  },
-  viewBtn: {
-    marginTop: 8,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "8px 14px",
-    border: "1px solid",
-    borderRadius: 8,
-    fontSize: 13,
-    fontWeight: 500,
-    cursor: "pointer",
-    transition: "all 0.15s",
-    width: "100%",
-  },
-  emptyState: {
-    textAlign: "center",
-    padding: "4rem 0",
-    color: "#9ca3af",
-    fontSize: 15,
-  },
 };
 
 export default SubjectCardGrid;

@@ -1,112 +1,178 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Row, Col, Card, Badge } from "react-bootstrap";
 import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { BarChart3, Trophy, CheckCircle2, XCircle, Sparkles, Award } from "lucide-react";
+import StatCard from "./ui/StatCard";
 
 export default function AllResults() {
   const [results, setResults] = useState([]);
+  const [loading, setLoading] = useState(true);
   const token = localStorage.getItem("token");
 
   useEffect(() => {
     axios
       .get(`${process.env.REACT_APP_API_URL}/api/my-results`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         setResults(res.data);
       })
       .catch((err) => {
-        console.error("❌ Failed to fetch results:", err);
+        console.error("Failed to fetch results:", err);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-  }, []);
+  }, [token]);
 
-  if (results.length === 0) {
+  if (loading) {
     return (
-      <Container className="mt-5 text-center">
-        <h4>No test results found.</h4>
-      </Container>
+      <div className="text-center py-5">
+        <div className="spinner-border text-primary" role="status">
+          <span className="visually-hidden">Loading performance...</span>
+        </div>
+        <p className="text-muted mt-3">Fetching test history & metrics...</p>
+      </div>
     );
   }
 
+  if (results.length === 0) {
+    return (
+      <div className="glass-card p-5 text-center my-4">
+        <BarChart3 size={48} className="text-muted mb-3" />
+        <h4 className="fw-bold text-main">No Test Results Found</h4>
+        <p className="text-muted">You haven't attempted any assessments yet. Take a test paper to view insights.</p>
+      </div>
+    );
+  }
+
+  const totalTests = results.length;
+  const avgScore = Math.round(
+    results.reduce((acc, curr) => acc + (curr.score / curr.totalMarks) * 100, 0) / totalTests
+  );
+
   return (
-    <Container className="mt-5">
-      <h2 className="text-center mb-4 text-primary">📊 Your Test Performance</h2>
-      <Row className="g-4">
+    <div className="container-fluid p-0 animate-fade-in">
+      <div className="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <div>
+          <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
+            Performance Analytics <BarChart3 size={24} className="text-primary" />
+          </h2>
+          <p className="text-muted mb-0">Track your overall assessment history, accuracy rates, and skill rank.</p>
+        </div>
+      </div>
+
+      {/* Overview Stat Cards */}
+      <div className="row g-3 mb-4">
+        <div className="col-12 col-sm-6 col-md-4">
+          <StatCard
+            title="Total Assessments"
+            value={totalTests}
+            subtitle="Completed Tests"
+            icon={Award}
+            color="primary"
+          />
+        </div>
+        <div className="col-12 col-sm-6 col-md-4">
+          <StatCard
+            title="Average Score"
+            value={`${avgScore}%`}
+            subtitle="Across All Subjects"
+            icon={Trophy}
+            color="emerald"
+          />
+        </div>
+        <div className="col-12 col-sm-6 col-md-4">
+          <StatCard
+            title="Overall Status"
+            value={avgScore >= 70 ? "Advanced" : avgScore >= 50 ? "Intermediate" : "Developing"}
+            subtitle="Skill Progression"
+            icon={Sparkles}
+            color="purple"
+          />
+        </div>
+      </div>
+
+      {/* Results Grid */}
+      <div className="row g-4">
         {results.map((result) => {
-          const {
-            _id,
-            score,
-            totalMarks,
-            correctAnswers,
-            wrongAnswers,
-            testPaperId,
-          } = result;
-
+          const { _id, score, totalMarks, correctAnswers, wrongAnswers, testPaperId } = result;
           const percentage = Math.round((score / totalMarks) * 100);
-          const testTitle = testPaperId?.title || "Untitled Test";
-         
+          const testTitle = testPaperId?.title || "Untitled Test Paper";
 
-          let rankColor = "secondary";
-          let progressColor = "#6c757d";
+          let progressColor = "var(--primary-500)";
+          let badgeClass = "tp-badge-primary";
+          let rankLabel = "Expert Rank";
+
           if (percentage >= 90) {
-            rankColor = "success";
-            progressColor = "#198754";
+            progressColor = "var(--accent-emerald)";
+            badgeClass = "tp-badge-success";
+            rankLabel = "🎓 Expert";
           } else if (percentage >= 70) {
-            rankColor = "primary";
-            progressColor = "#0d6efd";
+            progressColor = "var(--primary-500)";
+            badgeClass = "tp-badge-primary";
+            rankLabel = "🔥 Advanced";
           } else if (percentage >= 50) {
-            rankColor = "warning";
-            progressColor = "#ffc107";
+            progressColor = "var(--accent-amber)";
+            badgeClass = "tp-badge-warning";
+            rankLabel = "👍 Intermediate";
           } else {
-            rankColor = "danger";
-            progressColor = "#dc3545";
+            progressColor = "var(--accent-rose)";
+            badgeClass = "tp-badge-danger";
+            rankLabel = "📘 Beginner";
           }
 
           return (
-            <Col key={_id} md={6} lg={4}>
-              <Card className="shadow h-100 border-0">
-                <Card.Body className="d-flex flex-column align-items-center text-center">
-                  <div style={{ width: 100, height: 100, marginBottom: "1rem" }}>
+            <div key={_id} className="col-12 col-md-6 col-lg-4">
+              <div className="glass-card p-4 h-100 d-flex flex-column align-items-center text-center justify-content-between">
+                <div className="w-100">
+                  <div className="d-flex justify-content-between align-items-center mb-3">
+                    <span className={`tp-badge ${badgeClass}`}>{rankLabel}</span>
+                    <span className="text-muted fs-7 font-mono fw-semibold">
+                      {score} / {totalMarks} Marks
+                    </span>
+                  </div>
+
+                  {/* Circular Progress Bar */}
+                  <div style={{ width: 110, height: 110, margin: "0.5rem auto 1.25rem" }}>
                     <CircularProgressbar
-                      value={percentage}
+                      value={percentage < 0 ? 0 : percentage}
                       text={`${percentage}%`}
                       styles={buildStyles({
-                        textSize: "16px",
+                        textSize: "18px",
                         pathColor: progressColor,
-                        textColor: progressColor,
-                        trailColor: "#eee",
+                        textColor: "var(--text-main)",
+                        trailColor: "var(--border-subtle)",
+                        strokeLinecap: "round",
                       })}
                     />
                   </div>
-                  <Card.Title className="text-dark fs-5">{testTitle}</Card.Title>
-                  
-                  <p>
-                    <strong>Score:</strong> {score} / {totalMarks}
-                  </p>
-                  <p className="mb-1">
-                    <strong>✅ Correct:</strong> {correctAnswers}
-                  </p>
-                  <p>
-                    <strong>❌ Wrong:</strong> {wrongAnswers}
-                  </p>
-                  <Badge bg={rankColor} className="px-3 py-2 mt-2">
-                    {percentage >= 90
-                      ? "🎓 Expert"
-                      : percentage >= 70
-                      ? "🔥 Advanced"
-                      : percentage >= 50
-                      ? "👍 Intermediate"
-                      : "📘 Beginner"}
-                  </Badge>
-                </Card.Body>
-              </Card>
-            </Col>
+
+                  <h5 className="fw-bold text-main mb-3 text-truncate">{testTitle}</h5>
+
+                  {/* Metric details */}
+                  <div className="glass-panel p-3 rounded-3 mb-3 d-flex justify-content-around">
+                    <div>
+                      <span className="text-muted fs-7 d-block">CORRECT</span>
+                      <strong className="text-success fs-6">
+                        <CheckCircle2 size={14} className="me-1" /> {correctAnswers}
+                      </strong>
+                    </div>
+                    <div className="vr border-subtle" />
+                    <div>
+                      <span className="text-muted fs-7 d-block">INCORRECT</span>
+                      <strong className="text-danger fs-6">
+                        <XCircle size={14} className="me-1" /> {wrongAnswers}
+                      </strong>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           );
         })}
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 }
