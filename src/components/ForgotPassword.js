@@ -67,7 +67,7 @@ function ForgotPassword() {
         </div>
 
         <h3 className="fw-bold text-main mb-1">Forgot Password?</h3>
-        <p className="text-muted fs-6 mb-4">
+        <p className=" fs-6 mb-4">
           Enter your registered email address to receive password reset instructions.
         </p>
 
@@ -81,7 +81,7 @@ function ForgotPassword() {
           <div className="mb-4">
             <div className="position-relative">
               <span
-                className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+                className="position-absolute top-50 start-0 translate-middle-y ms-3 "
                 style={{ pointerEvents: "none" }}
               >
                 <Mail size={18} />

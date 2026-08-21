@@ -39,7 +39,7 @@ export default function NoticeBoard() {
           <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
             Notice Board & Announcements <Bell size={24} className="text-primary" />
           </h2>
-          <p className="text-muted mb-0">Stay updated with official examination schedules, platform announcements, and guidelines.</p>
+          <p className=" mb-0">Stay updated with official examination schedules, platform announcements, and guidelines.</p>
         </div>
       </div>
 
@@ -60,14 +60,14 @@ export default function NoticeBoard() {
                   >
                     <Pin size={12} /> {notice.category}
                   </span>
-                  <span className="text-muted fs-7 d-flex align-items-center gap-1">
+                  <span className=" fs-7 d-flex align-items-center gap-1">
                     <Calendar size={14} /> {notice.date}
                   </span>
                 </div>
               </div>
 
               <h4 className="fw-bold text-main mb-2">{notice.title}</h4>
-              <p className="text-muted fs-6 mb-0 lh-base">{notice.content}</p>
+              <p className=" fs-6 mb-0 lh-base">{notice.content}</p>
             </div>
           </div>
         ))}

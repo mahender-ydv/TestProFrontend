@@ -106,7 +106,7 @@ const SubjectCardGrid = () => {
           <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
             Subject Library <Sparkles size={24} className="text-primary" />
           </h2>
-          <p className="text-muted mb-0">Select a subject to view and attempt available test papers.</p>
+          <p className=" mb-0">Select a subject to view and attempt available test papers.</p>
         </div>
 
         {role === "admin" && (
@@ -153,7 +153,7 @@ const SubjectCardGrid = () => {
       {/* Search & Action Bar */}
       <div className="glass-card p-3 mb-4 d-flex justify-content-between align-items-center flex-wrap gap-3">
         <div className="position-relative flex-grow-1" style={{ maxWidth: "420px" }}>
-          <Search size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+          <Search size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
           <input
             type="text"
             className="tp-input ps-5"
@@ -174,13 +174,13 @@ const SubjectCardGrid = () => {
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading subjects...</span>
           </div>
-          <p className="text-muted mt-3">Loading available subjects...</p>
+          <p className=" mt-3">Loading available subjects...</p>
         </div>
       ) : filteredSubjects.length === 0 ? (
         <div className="glass-card p-5 text-center my-4">
-          <BookOpen size={48} className="text-muted mb-3" />
+          <BookOpen size={48} className=" mb-3" />
           <h4 className="fw-bold text-main">No Subjects Found</h4>
-          <p className="text-muted">Try adjusting your search keywords or add a new subject.</p>
+          <p className="">Try adjusting your search keywords or add a new subject.</p>
         </div>
       ) : (
         <div className="row g-4">
@@ -273,9 +273,9 @@ const SubjectCard = ({ subject, icon, palette, onView }) => {
           <span className="tp-badge tp-badge-primary">Course</span>
         </div>
 
-        <span className="text-muted text-uppercase fw-bold fs-7 tracking-wide">Subject</span>
+        <span className=" text-uppercase fw-bold fs-7 tracking-wide">Subject</span>
         <h4 className="fw-bold text-main my-1">{subject.name}</h4>
-        <p className="text-muted fs-6 mb-4 line-clamp-2">
+        <p className=" fs-6 mb-4 line-clamp-2">
           {subject.description || `Practice standardized tests and topic assessments for ${subject.name}.`}
         </p>
       </div>

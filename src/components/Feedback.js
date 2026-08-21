@@ -115,7 +115,7 @@ export default function Feedback() {
                       />
                     ))}
                     {formData.rating > 0 && (
-                      <span className="ms-2 text-muted">
+                      <span className="ms-2 ">
                         ({formData.rating} / 5)
                       </span>
                     )}

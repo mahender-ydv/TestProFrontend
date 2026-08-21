@@ -56,7 +56,7 @@ const AddQuestion = () => {
           </button>
           <div>
             <h3 className="fw-bold text-main mb-0">Add Questions</h3>
-            <p className="text-muted mb-0">Test Paper: {testTitle || "Selected Paper"}</p>
+            <p className=" mb-0">Test Paper: {testTitle || "Selected Paper"}</p>
           </div>
         </div>
 
@@ -98,7 +98,7 @@ const AddQuestion = () => {
                 {options.map((opt, i) => (
                   <div key={i} className="col-12 col-md-6">
                     <div className="input-group">
-                      <span className="input-group-text glass-panel text-muted fw-bold">
+                      <span className="input-group-text glass-panel  fw-bold">
                         {String.fromCharCode(65 + i)}
                       </span>
                       <input

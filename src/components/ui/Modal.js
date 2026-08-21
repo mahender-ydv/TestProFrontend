@@ -28,7 +28,7 @@ export default function Modal({ isOpen, onClose, title, children }) {
           <h4 className="fw-bold mb-0 text-main">{title}</h4>
           <button
             onClick={onClose}
-            className="btn btn-sm btn-link text-muted p-1 border-0"
+            className="btn btn-sm btn-link  p-1 border-0"
             style={{ borderRadius: "50%" }}
           >
             <X size={20} />

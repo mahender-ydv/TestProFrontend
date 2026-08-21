@@ -114,7 +114,7 @@ const Paper = () => {
             <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
               {subjectName || "Subject"} Test Papers <Sparkles size={22} className="text-primary" />
             </h2>
-            <p className="text-muted mb-0">Select an assessment paper to begin your timed test session.</p>
+            <p className=" mb-0">Select an assessment paper to begin your timed test session.</p>
           </div>
         </div>
 
@@ -136,13 +136,13 @@ const Paper = () => {
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading test papers...</span>
           </div>
-          <p className="text-muted mt-3">Fetching test papers...</p>
+          <p className=" mt-3">Fetching test papers...</p>
         </div>
       ) : testPapers.length === 0 ? (
         <div className="glass-card p-5 text-center my-4">
-          <FileText size={48} className="text-muted mb-3" />
+          <FileText size={48} className=" mb-3" />
           <h4 className="fw-bold text-main">No Test Papers Available</h4>
-          <p className="text-muted">There are currently no test papers created for {subjectName}.</p>
+          <p className="">There are currently no test papers created for {subjectName}.</p>
         </div>
       ) : (
         <div className="row g-4">
@@ -152,7 +152,7 @@ const Paper = () => {
                 <div>
                   <div className="d-flex justify-content-between align-items-start mb-3">
                     <span className="tp-badge tp-badge-primary">Assessment</span>
-                    <span className="text-muted fs-7 font-mono fw-semibold">ID: {test._id.slice(-6)}</span>
+                    <span className=" fs-7 font-mono fw-semibold">ID: {test._id.slice(-6)}</span>
                   </div>
 
                   <h4 className="fw-bold text-main mb-3">{test.title}</h4>
@@ -208,7 +208,7 @@ const Paper = () => {
           <div>
             <div className="glass-card p-3 mb-3" style={{ backgroundColor: "var(--bg-surface-elevated)" }}>
               <h5 className="fw-bold text-main mb-2">{selectedTest.title}</h5>
-              <div className="d-flex gap-3 text-muted fs-6">
+              <div className="d-flex gap-3  fs-6">
                 <span>⏱️ <strong>Duration:</strong> {selectedTest.duration} minutes</span>
                 <span>🏆 <strong>Total Marks:</strong> {selectedTest.totalMarks}</span>
               </div>

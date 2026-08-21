@@ -75,7 +75,7 @@ export default function Header() {
                       `nav-link d-flex align-items-center gap-2 px-3 py-2 rounded-3 fw-semibold transition-all ${
                         isActive
                           ? "bg-primary text-white shadow-sm"
-                          : "text-muted hover-surface"
+                          : " hover-surface "
                       }`
                     }
                     end

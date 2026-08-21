@@ -268,7 +268,7 @@ const TestPage = () => {
                     <span className="tp-badge tp-badge-primary fs-6">
                       Question {currentQuestionIndex + 1} of {questions.length}
                     </span>
-                    <span className="text-muted fs-6 fw-semibold">+4 Marks / -1 Negative</span>
+                    <span className=" fs-6 fw-semibold">+4 Marks / -1 Negative</span>
                   </div>
 
                   <h4 className="fw-bold text-main lh-base mb-4">
@@ -294,7 +294,7 @@ const TestPage = () => {
                             className={`rounded-circle d-flex align-items-center justify-content-center fw-bold fs-7 ${
                               isSelected
                                 ? "bg-white text-primary"
-                                : "border border-secondary text-muted"
+                                : "border border-secondary "
                             }`}
                             style={{ width: "28px", height: "28px" }}
                           >
@@ -406,21 +406,21 @@ const TestPage = () => {
         onClose={() => setShowConfirmModal(false)}
         title="Submit Examination?"
       >
-        <p className="text-muted fs-6 mb-3">
+        <p className=" fs-6 mb-3">
           Are you sure you want to finish and submit your test paper?
         </p>
 
         <div className="glass-card p-3 mb-4" style={{ backgroundColor: "var(--bg-surface-elevated)" }}>
           <div className="d-flex justify-content-between mb-2">
-            <span className="text-muted">Total Questions:</span>
+            <span className="">Total Questions:</span>
             <strong className="text-main">{questions.length}</strong>
           </div>
           <div className="d-flex justify-content-between mb-2">
-            <span className="text-muted">Questions Answered:</span>
+            <span className="">Questions Answered:</span>
             <strong className="text-success">{answeredCount}</strong>
           </div>
           <div className="d-flex justify-content-between">
-            <span className="text-muted">Unanswered / Skipped:</span>
+            <span className="">Unanswered / Skipped:</span>
             <strong className="text-danger">{skippedCount}</strong>
           </div>
         </div>

@@ -80,7 +80,7 @@ const ResetPassword = () => {
         </div>
 
         <h3 className="fw-bold text-main mb-1">Reset Password</h3>
-        <p className="text-muted fs-6 mb-4">Set your new password below</p>
+        <p className=" fs-6 mb-4">Set your new password below</p>
 
         {message && (
           <div className={`tp-badge ${isError ? "tp-badge-danger" : "tp-badge-success"} w-100 p-3 mb-3 rounded-3`}>
@@ -93,7 +93,7 @@ const ResetPassword = () => {
             <label className="form-label fw-semibold text-main fs-6">New Password</label>
             <div className="position-relative">
               <span
-                className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+                className="position-absolute top-50 start-0 translate-middle-y ms-3 "
                 style={{ pointerEvents: "none" }}
               >
                 <Lock size={18} />
@@ -114,7 +114,7 @@ const ResetPassword = () => {
             <label className="form-label fw-semibold text-main fs-6">Confirm Password</label>
             <div className="position-relative">
               <span
-                className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+                className="position-absolute top-50 start-0 translate-middle-y ms-3 "
                 style={{ pointerEvents: "none" }}
               >
                 <Lock size={18} />

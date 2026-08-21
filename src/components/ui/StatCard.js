@@ -14,14 +14,14 @@ export default function StatCard({ title, value, subtitle, icon: Icon, color = "
   return (
     <div className="glass-card p-4 d-flex align-items-center justify-content-between">
       <div>
-        <span className="text-muted text-uppercase fw-semibold" style={{ fontSize: "0.75rem", letterSpacing: "0.05em" }}>
+        <span className=" text-uppercase fw-semibold" style={{ fontSize: "0.75rem", letterSpacing: "0.05em" }}>
           {title}
         </span>
         <h3 className="fw-bold my-1 text-main" style={{ fontSize: "1.75rem" }}>
           {value}
         </h3>
         {subtitle && (
-          <span className="text-muted" style={{ fontSize: "0.85rem" }}>
+          <span className="" style={{ fontSize: "0.85rem" }}>
             {trend && <span className="me-1 fw-bold text-success">{trend}</span>}
             {subtitle}
           </span>

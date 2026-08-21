@@ -32,7 +32,7 @@ export default function AllResults() {
         <div className="spinner-border text-primary" role="status">
           <span className="visually-hidden">Loading performance...</span>
         </div>
-        <p className="text-muted mt-3">Fetching test history & metrics...</p>
+        <p className=" mt-3">Fetching test history & metrics...</p>
       </div>
     );
   }
@@ -40,9 +40,9 @@ export default function AllResults() {
   if (results.length === 0) {
     return (
       <div className="glass-card p-5 text-center my-4">
-        <BarChart3 size={48} className="text-muted mb-3" />
+        <BarChart3 size={48} className=" mb-3" />
         <h4 className="fw-bold text-main">No Test Results Found</h4>
-        <p className="text-muted">You haven't attempted any assessments yet. Take a test paper to view insights.</p>
+        <p className="">You haven't attempted any assessments yet. Take a test paper to view insights.</p>
       </div>
     );
   }
@@ -59,7 +59,7 @@ export default function AllResults() {
           <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
             Performance Analytics <BarChart3 size={24} className="text-primary" />
           </h2>
-          <p className="text-muted mb-0">Track your overall assessment history, accuracy rates, and skill rank.</p>
+          <p className=" mb-0">Track your overall assessment history, accuracy rates, and skill rank.</p>
         </div>
       </div>
 
@@ -129,7 +129,7 @@ export default function AllResults() {
                 <div className="w-100">
                   <div className="d-flex justify-content-between align-items-center mb-3">
                     <span className={`tp-badge ${badgeClass}`}>{rankLabel}</span>
-                    <span className="text-muted fs-7 font-mono fw-semibold">
+                    <span className=" fs-7 font-mono fw-semibold">
                       {score} / {totalMarks} Marks
                     </span>
                   </div>
@@ -154,14 +154,14 @@ export default function AllResults() {
                   {/* Metric details */}
                   <div className="glass-panel p-3 rounded-3 mb-3 d-flex justify-content-around">
                     <div>
-                      <span className="text-muted fs-7 d-block">CORRECT</span>
+                      <span className=" fs-7 d-block">CORRECT</span>
                       <strong className="text-success fs-6">
                         <CheckCircle2 size={14} className="me-1" /> {correctAnswers}
                       </strong>
                     </div>
                     <div className="vr border-subtle" />
                     <div>
-                      <span className="text-muted fs-7 d-block">INCORRECT</span>
+                      <span className=" fs-7 d-block">INCORRECT</span>
                       <strong className="text-danger fs-6">
                         <XCircle size={14} className="me-1" /> {wrongAnswers}
                       </strong>

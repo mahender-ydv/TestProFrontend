@@ -87,7 +87,7 @@ const LandingPage = () => {
             Master Your Skills with Intelligent <span className="gradient-text">Online Testing</span>
           </h1>
 
-          <p className="lead text-muted max-w-2xl mx-auto my-4 fs-5" style={{ maxWidth: "680px", margin: "0 auto" }}>
+          <p className="lead max-w-2xl mx-auto my-4 fs-5" style={{ maxWidth: "680px", margin: "0 auto" }}>
             Comprehensive topic-wise assessments, detailed real-time performance analytics, proctored exam simulation, and learning resources designed to elevate your success.
           </p>
 
@@ -111,19 +111,19 @@ const LandingPage = () => {
             <div className="col-6 col-md-3">
               <div className="glass-card p-3 text-center">
                 <h3 className="fw-bold gradient-text mb-0">100+</h3>
-                <span className="text-muted fs-6">Subject Tests</span>
+                <span className="fs-6">Subject Tests</span>
               </div>
             </div>
             <div className="col-6 col-md-3">
               <div className="glass-card p-3 text-center">
                 <h3 className="fw-bold gradient-text-cyan mb-0">99.8%</h3>
-                <span className="text-muted fs-6">Accuracy Rate</span>
+                <span className=" fs-6">Accuracy Rate</span>
               </div>
             </div>
             <div className="col-6 col-md-3">
               <div className="glass-card p-3 text-center">
                 <h3 className="fw-bold text-success mb-0">Real-time</h3>
-                <span className="text-muted fs-6">Instant Analytics</span>
+                <span className=" fs-6">Instant Analytics</span>
               </div>
             </div>
           </div>
@@ -136,7 +136,7 @@ const LandingPage = () => {
           <div className="text-center mb-5">
             <span className="tp-badge tp-badge-primary mb-2">FEATURES</span>
             <h2 className="display-5 fw-bold text-main">Why Choose TestPro?</h2>
-            <p className="text-muted fs-5">Everything you need for standardized, proctored, and effective testing.</p>
+            <p className=" fs-5">Everything you need for standardized, proctored, and effective testing.</p>
           </div>
 
           <div className="row g-4">
@@ -153,7 +153,7 @@ const LandingPage = () => {
                   <BookOpen size={28} />
                 </div>
                 <h4 className="fw-bold text-main mb-0">Topic-wise Assessments</h4>
-                <p className="text-muted mb-0">
+                <p className=" mb-0">
                   Attempt structured tests categorized by subject, chapter, and difficulty levels to sharpen targeted concepts.
                 </p>
               </div>
@@ -172,7 +172,7 @@ const LandingPage = () => {
                   <Shield size={28} />
                 </div>
                 <h4 className="fw-bold text-main mb-0">Proctored Exam Room</h4>
-                <p className="text-muted mb-0">
+                <p className=" mb-0">
                   Simulate official exam conditions with countdown timers, tab switch monitoring, and automatic response saving.
                 </p>
               </div>
@@ -191,7 +191,7 @@ const LandingPage = () => {
                   <Zap size={28} />
                 </div>
                 <h4 className="fw-bold text-main mb-0">Instant Score Insights</h4>
-                <p className="text-muted mb-0">
+                <p className=" mb-0">
                   Receive detailed performance reports with question-by-question breakdown, accuracy percentage, and score trends.
                 </p>
               </div>
@@ -207,7 +207,7 @@ const LandingPage = () => {
           <div className="row g-4">
             <div className="col-md-6">
               <div className="glass-card p-4 h-100 d-flex flex-column justify-content-between">
-                <p className="fs-5 text-muted fst-italic">
+                <p className="fs-5  fst-italic">
                   "TestPro provided me with real exam practice environment. The immediate analytics helped me identify my weak topics and score top marks in entrance exams!"
                 </p>
                 <div className="d-flex align-items-center gap-3 mt-3">
@@ -219,7 +219,7 @@ const LandingPage = () => {
                   </div>
                   <div>
                     <h6 className="fw-bold text-main mb-0">Mahender Yadav</h6>
-                    <span className="text-muted fs-6">Software Engineer & Student</span>
+                    <span className=" fs-6">Software Engineer & Student</span>
                   </div>
                 </div>
               </div>
@@ -227,7 +227,7 @@ const LandingPage = () => {
 
             <div className="col-md-6">
               <div className="glass-card p-4 h-100 d-flex flex-column justify-content-between">
-                <p className="fs-5 text-muted fst-italic">
+                <p className="fs-5  fst-italic">
                   "The UI is incredibly smooth and responsive. Being able to take tests seamlessly on any device with dark mode support makes studying enjoyable."
                 </p>
                 <div className="d-flex align-items-center gap-3 mt-3">
@@ -239,7 +239,7 @@ const LandingPage = () => {
                   </div>
                   <div>
                     <h6 className="fw-bold text-main mb-0">Suraj Kumar</h6>
-                    <span className="text-muted fs-6">Computer Science Aspirant</span>
+                    <span className=" fs-6">Computer Science Aspirant</span>
                   </div>
                 </div>
               </div>
@@ -249,7 +249,7 @@ const LandingPage = () => {
       </section>
 
       {/* Footer */}
-      <footer className="mt-auto py-4 px-3 border-top border-subtle text-center text-muted" style={{ backgroundColor: "var(--bg-surface)" }}>
+      <footer className="mt-auto py-4 px-3 border-top border-subtle text-center " style={{ backgroundColor: "var(--bg-surface)" }}>
         <div className="container">
           <p className="mb-0 fs-6">&copy; {new Date().getFullYear()} TestPro Systems. Built with precision and care.</p>
         </div>

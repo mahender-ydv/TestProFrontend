@@ -125,7 +125,7 @@ export default function Setting() {
           <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
             Account Settings <Settings size={24} className="text-primary" />
           </h2>
-          <p className="text-muted mb-0">Manage your profile, security, and appearance preferences.</p>
+          <p className=" mb-0">Manage your profile, security, and appearance preferences.</p>
         </div>
 
         <button
@@ -173,7 +173,7 @@ export default function Setting() {
         </div>
 
         <h4 className="fw-bold text-main mb-1">{name || "User"}</h4>
-        <span className="text-muted fs-6">{email}</span>
+        <span className=" fs-6">{email}</span>
       </div>
 
       {/* Update Profile Name */}
@@ -183,7 +183,7 @@ export default function Setting() {
           <div className="mb-3">
             <label className="form-label fw-semibold text-main">Full Name</label>
             <div className="position-relative">
-              <User size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <User size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <input
                 type="text"
                 className="tp-input ps-5"
@@ -197,10 +197,10 @@ export default function Setting() {
           <div className="mb-4">
             <label className="form-label fw-semibold text-main">Email Address (Read-only)</label>
             <div className="position-relative">
-              <Mail size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <Mail size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <input
                 type="email"
-                className="tp-input ps-5 text-muted"
+                className="tp-input ps-5 "
                 value={email}
                 disabled
               />
@@ -220,7 +220,7 @@ export default function Setting() {
           <div className="mb-3">
             <label className="form-label fw-semibold text-main">Current Password</label>
             <div className="position-relative">
-              <Lock size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <Lock size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <input
                 type="password"
                 className="tp-input ps-5"
@@ -234,7 +234,7 @@ export default function Setting() {
           <div className="mb-4">
             <label className="form-label fw-semibold text-main">New Password</label>
             <div className="position-relative">
-              <Lock size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <Lock size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <input
                 type="password"
                 className="tp-input ps-5"
@@ -254,7 +254,7 @@ export default function Setting() {
       {/* Danger Zone */}
       <div className="glass-card p-4 border-danger border-opacity-25" style={{ backgroundColor: "rgba(244, 63, 94, 0.05)" }}>
         <h5 className="fw-bold text-danger mb-2">Danger Zone</h5>
-        <p className="text-muted fs-6 mb-3">
+        <p className=" fs-6 mb-3">
           Deleting your account will purge all your saved test scores, history, and user settings permanently.
         </p>
 
@@ -272,7 +272,7 @@ export default function Setting() {
         onClose={() => setShowDeleteModal(false)}
         title="Delete Account?"
       >
-        <p className="text-muted fs-6">
+        <p className=" fs-6">
           Are you sure you want to permanently delete your TestPro account? This operation cannot be undone.
         </p>
         <div className="d-flex justify-content-end gap-2 mt-4">

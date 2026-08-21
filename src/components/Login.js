@@ -92,7 +92,7 @@ export default function LoginPage() {
             <Sparkles size={28} />
           </div>
           <h3 className="fw-bold text-main mb-1">Welcome Back</h3>
-          <p className="text-muted fs-6">Sign in to your TestPro account</p>
+          <p className=" fs-6">Sign in to your TestPro account</p>
         </div>
 
         {error && (
@@ -107,7 +107,7 @@ export default function LoginPage() {
             <label className="form-label fw-semibold text-main fs-6">Email Address</label>
             <div className="position-relative">
               <span
-                className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+                className="position-absolute top-50 start-0 translate-middle-y ms-3 "
                 style={{ pointerEvents: "none" }}
               >
                 <Mail size={18} />
@@ -138,7 +138,7 @@ export default function LoginPage() {
             </div>
             <div className="position-relative">
               <span
-                className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"
+                className="position-absolute top-50 start-0 translate-middle-y ms-3 "
                 style={{ pointerEvents: "none" }}
               >
                 <Lock size={18} />
@@ -154,7 +154,7 @@ export default function LoginPage() {
               />
               <button
                 type="button"
-                className="btn btn-link position-absolute top-50 end-0 translate-middle-y me-2 text-muted p-1 border-0"
+                className="btn btn-link position-absolute top-50 end-0 translate-middle-y me-2  p-1 border-0"
                 onClick={togglePasswordVisibility}
               >
                 {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
@@ -171,7 +171,7 @@ export default function LoginPage() {
           </button>
         </form>
 
-        <div className="text-center mt-4 pt-3 border-top border-subtle text-muted fs-6">
+        <div className="text-center mt-4 pt-3 border-top border-subtle  fs-6">
           Don't have an account?{" "}
           <span
             className="text-primary fw-bold cursor-pointer"

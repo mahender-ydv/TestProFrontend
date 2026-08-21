@@ -105,7 +105,7 @@ export default function Sidebar() {
                     `nav-link d-flex align-items-center gap-3 px-3 py-2-5 rounded-3 fw-semibold transition-all ${
                       isActive
                         ? "bg-primary text-white shadow-sm"
-                        : "text-muted hover-surface"
+                        : " hover-surface"
                     } ${collapsed ? "justify-content-center px-0" : ""}`
                   }
                 >
@@ -137,7 +137,7 @@ export default function Sidebar() {
         onClose={() => setShowLogoutModal(false)}
         title="Confirm Logout"
       >
-        <p className="text-muted">
+        <p className="">
           Are you sure you want to log out of your TestPro account? Any unsaved progress will be cleared.
         </p>
         <div className="d-flex justify-content-end gap-2 mt-4">

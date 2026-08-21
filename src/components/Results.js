@@ -73,7 +73,7 @@ export default function Results() {
           <h2 className="display-6 fw-bold text-main mb-1">
             {isPassed ? "Congratulations! Test Completed" : "Assessment Completed"}
           </h2>
-          <p className="text-muted fs-5 mb-4">
+          <p className=" fs-5 mb-4">
             {isPassed
               ? "You demonstrated great proficiency in this examination."
               : "Review your answers below to strengthen your weak topics."}
@@ -81,7 +81,7 @@ export default function Results() {
 
           <div className="d-inline-flex align-items-center gap-3 px-4 py-2 rounded-pill glass-panel mb-4">
             <span className="fs-4 fw-extrabold gradient-text">{percentage}% Score</span>
-            <span className="text-muted">|</span>
+            <span className="">|</span>
             <span className="fs-5 fw-bold text-main">{finalScore} / {totalMarks} Marks</span>
           </div>
 
@@ -183,14 +183,14 @@ export default function Results() {
 
                   <div className="row g-2 fs-6">
                     <div className="col-12 col-md-6">
-                      <span className="text-muted d-block fs-7">YOUR RESPONSE:</span>
-                      <strong className={isCorrect ? "text-success" : isSkipped ? "text-muted" : "text-danger"}>
+                      <span className=" d-block fs-7">YOUR RESPONSE:</span>
+                      <strong className={isCorrect ? "text-success" : isSkipped ? "" : "text-danger"}>
                         {userAnswer || "Not Attempted"}
                       </strong>
                     </div>
 
                     <div className="col-12 col-md-6">
-                      <span className="text-muted d-block fs-7">CORRECT ANSWER:</span>
+                      <span className=" d-block fs-7">CORRECT ANSWER:</span>
                       <strong className="text-success">{q.correctAnswer}</strong>
                     </div>
                   </div>

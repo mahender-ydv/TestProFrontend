@@ -49,7 +49,7 @@ const FileUploadSystem = ({ testPaperId }) => {
       </div>
 
       <h4 className="fw-bold text-main mb-1">Bulk Question Importer</h4>
-      <p className="text-muted fs-6 mb-4">
+      <p className=" fs-6 mb-4">
         Upload CSV or JSON file containing question statements, options, and correct answers.
       </p>
 

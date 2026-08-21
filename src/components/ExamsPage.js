@@ -43,7 +43,7 @@ export default function ExamsPage() {
           <h2 className="fw-bold text-main mb-1 d-flex align-items-center gap-2">
             Important DSA & Coding Problems <Code2 size={24} className="text-primary" />
           </h2>
-          <p className="text-muted mb-0">Curated LeetCode & Data Structures problem bank for tech interview prep.</p>
+          <p className=" mb-0">Curated LeetCode & Data Structures problem bank for tech interview prep.</p>
         </div>
       </div>
 
@@ -52,7 +52,7 @@ export default function ExamsPage() {
         <div className="row g-3 align-items-center">
           <div className="col-12 col-md-5">
             <div className="position-relative">
-              <Search size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <Search size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <input
                 type="text"
                 className="tp-input ps-5"
@@ -65,7 +65,7 @@ export default function ExamsPage() {
 
           <div className="col-12 col-sm-6 col-md-4">
             <div className="position-relative">
-              <Filter size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <Filter size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <select
                 className="tp-input ps-5"
                 value={topicFilter}
@@ -93,7 +93,7 @@ export default function ExamsPage() {
 
       {/* Results Header */}
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <span className="text-muted fs-6">
+        <span className=" fs-6">
           Showing <strong className="text-main">{filteredQuestions.length}</strong> problem{filteredQuestions.length !== 1 ? "s" : ""}
         </span>
       </div>
@@ -104,18 +104,18 @@ export default function ExamsPage() {
           <table className="table table-borderless table-hover align-middle mb-0">
             <thead style={{ backgroundColor: "var(--bg-surface-elevated)", borderBottom: "1px solid var(--border-subtle)" }}>
               <tr>
-                <th className="py-3 px-4 text-muted fw-semibold fs-7">#</th>
-                <th className="py-3 px-4 text-muted fw-semibold fs-7">PROBLEM TITLE</th>
-                <th className="py-3 px-4 text-muted fw-semibold fs-7">TOPIC</th>
-                <th className="py-3 px-4 text-muted fw-semibold fs-7">DIFFICULTY</th>
-                <th className="py-3 px-4 text-muted fw-semibold fs-7 text-end">ACTION</th>
+                <th className="py-3 px-4  fw-semibold fs-7">#</th>
+                <th className="py-3 px-4  fw-semibold fs-7">PROBLEM TITLE</th>
+                <th className="py-3 px-4  fw-semibold fs-7">TOPIC</th>
+                <th className="py-3 px-4  fw-semibold fs-7">DIFFICULTY</th>
+                <th className="py-3 px-4  fw-semibold fs-7 text-end">ACTION</th>
               </tr>
             </thead>
             <tbody>
               {filteredQuestions.length > 0 ? (
                 filteredQuestions.map((q, index) => (
                   <tr key={q._id || index} style={{ borderBottom: "1px solid var(--border-subtle)" }}>
-                    <td className="py-3 px-4 fw-bold text-muted fs-7">{index + 1}</td>
+                    <td className="py-3 px-4 fw-bold  fs-7">{index + 1}</td>
                     <td className="py-3 px-4 fw-semibold text-main">{q.title}</td>
                     <td className="py-3 px-4">
                       <span className="tp-badge tp-badge-primary">{q.topic}</span>
@@ -147,7 +147,7 @@ export default function ExamsPage() {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5" className="text-center py-5 text-muted">
+                  <td colSpan="5" className="text-center py-5 ">
                     No matching coding questions found.
                   </td>
                 </tr>

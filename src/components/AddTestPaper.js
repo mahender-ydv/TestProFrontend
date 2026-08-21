@@ -43,7 +43,7 @@ const AddTestPaper = () => {
         </button>
         <div>
           <h3 className="fw-bold text-main mb-0">Create New Test Paper</h3>
-          <p className="text-muted mb-0">Subject: {subjectName || "Selected Subject"}</p>
+          <p className=" mb-0">Subject: {subjectName || "Selected Subject"}</p>
         </div>
       </div>
 
@@ -52,7 +52,7 @@ const AddTestPaper = () => {
           <div className="mb-4">
             <label className="form-label fw-semibold text-main">Test Paper Title</label>
             <div className="position-relative">
-              <FileText size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <FileText size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <input
                 type="text"
                 className="tp-input ps-5"
@@ -67,7 +67,7 @@ const AddTestPaper = () => {
           <div className="mb-4">
             <label className="form-label fw-semibold text-main">Duration (Minutes)</label>
             <div className="position-relative">
-              <Clock size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <Clock size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <input
                 type="number"
                 className="tp-input ps-5"
@@ -82,7 +82,7 @@ const AddTestPaper = () => {
           <div className="mb-4">
             <label className="form-label fw-semibold text-main">Total Maximum Marks</label>
             <div className="position-relative">
-              <Award size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 text-muted" />
+              <Award size={18} className="position-absolute top-50 start-0 translate-middle-y ms-3 " />
               <input
                 type="number"
                 className="tp-input ps-5"

@@ -124,7 +124,7 @@ const VerifyOTP = () => {
         </div>
 
         <h3 className="fw-bold text-main mb-1">Enter Verification Code</h3>
-        <p className="text-muted fs-6 mb-4">
+        <p className=" fs-6 mb-4">
           {email ? (
             <>
               We sent a 6-digit OTP code to <strong className="text-main">{email}</strong>
